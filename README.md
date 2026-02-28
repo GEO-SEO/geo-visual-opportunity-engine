@@ -27,6 +27,75 @@
 - **Localized Content**: Supports 10+ languages for content generation
 - **4-Week Publishing Rhythm**: Provides complete content publishing plan
 
+## Input Parameters
+
+This skill supports **two modes**. Use the `mode` parameter to select:
+
+### Mode 1: GEO Opportunity Analysis
+
+Analyze brand/product/keywords to identify visual marketing opportunities.
+
+```json
+{
+  "mode": "geo_analysis",
+  "brand": "AcmeWatch",
+  "product": "Acme DivePro 5",
+  "core_keyword": "smartwatch water resistance",
+  "country": "us",
+  "language": "en",
+  "competitors": ["BrandA", "BrandB"],
+  "platform_focus": ["ChatGPT", "Grok"],
+  "generate_images": true
+}
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `mode` | string | ✅ | Set to `"geo_analysis"` |
+| `brand` | string | ✅ | Brand name |
+| `product` | string | ✅ | Product name |
+| `core_keyword` | string | ✅ | Core keyword/phrase |
+| `country` | string | ✅ | Target country (e.g., us, uk, jp) |
+| `language` | string | ✅ | Output language (e.g., en, zh) |
+| `competitors` | array | ❌ | Competitor list (max 10) |
+| `platform_focus` | array | ❌ | Target AI platforms |
+| `generate_images` | boolean | ❌ | Auto-generate images (default: true) |
+
+### Mode 2: E-commerce Product Creation
+
+Auto-generate product data, create images, and publish to Shopify/WooCommerce.
+
+```json
+{
+  "mode": "create_product",
+  "product_name": "Wireless Bluetooth Headphones Pro",
+  "category": "Electronics",
+  "base_price": 79.99,
+  "language": "en",
+  "target_platforms": ["shopify", "woocommerce"],
+  "generate_images": true,
+  "image_style": "white_info",
+  "publish_to_shopify": false,
+  "publish_to_woocommerce": false
+}
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `mode` | string | ✅ | Set to `"create_product"` |
+| `product_name` | string | ✅ | Product name |
+| `category` | string | ❌ | Product category |
+| `base_price` | number | ❌ | Product price (USD) |
+| `description` | string | ❌ | Product description (auto-generated if not provided) |
+| `language` | string | ❌ | Output language (default: en) |
+| `target_platforms` | array | ❌ | Platforms: shopify, woocommerce |
+| `generate_images` | boolean | ❌ | Generate product image (default: true) |
+| `image_style` | string | ❌ | Image style: white_info, lifestyle, hero |
+| `publish_to_shopify` | boolean | ❌ | Publish to Shopify (default: false) |
+| `publish_to_woocommerce` | boolean | ❌ | Publish to WooCommerce (default: false) |
+
+---
+
 ## Quick Start
 
 ### Prerequisites
