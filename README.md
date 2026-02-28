@@ -291,6 +291,13 @@ geo-visual-opportunity-engine/
 - New workflow: Generate images → Synthesize data → Publish to e-commerce
 - Main class renamed to EcommerceAutomator
 
+### v3.0.0 (2026-02-28)
+
+- Added Product Synthesizer (auto-generate title, description, SKU, price)
+- New workflow: Generate images → Synthesize data → Publish to e-commerce
+- Main class renamed to EcommerceAutomator
+- Fixed version number to display correctly as v3.0.0
+
 ### v2.0.0 (2026-02-28)
 
 - Added automatic Nano Banana 2 image generation

@@ -14,7 +14,7 @@ AUTHOR_INFO = {
 
 # Skill Configuration
 SKILL_CONFIG = {
-    "version": "2.0.0",
+    "version": "3.0.0",
     "name": "geo-visual-opportunity-engine",
     "display_name": "GEO Visual Opportunity Engine"
 }

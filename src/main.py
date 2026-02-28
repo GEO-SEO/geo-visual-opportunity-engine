@@ -80,6 +80,191 @@ class EcommerceAutomator:
         # Check connections
         self._check_connections()
 
+    def run_complete_workflow(
+        self,
+        product_input: str,
+        country: str = "us",
+        language: str = "en",
+        generate_images: bool = True,
+        publish_to_shopify: bool = False,
+        publish_to_woocommerce: bool = False,
+        output_dir: str = "output"
+    ) -> Dict[str, Any]:
+        """
+        Unified workflow: One input completes the entire process.
+        This is the main entry point for complete automation.
+
+        Args:
+            product_input: Single keyword or product name (e.g., "wireless headphones")
+            country: Target country code (default: "us")
+            language: Output language code (default: "en")
+            generate_images: Whether to generate AI images (default: True)
+            publish_to_shopify: Whether to publish to Shopify (default: False)
+            publish_to_woocommerce: Whether to publish to WooCommerce (default: False)
+            output_dir: Output directory for results (default: "output")
+
+        Returns:
+            Complete result dictionary with all outputs:
+            - product_data: Synthesized product information
+            - generated_images: List of generated image URLs
+            - geo_analysis: GEO opportunity analysis results
+            - publish_results: Publishing status for each platform
+
+        Example:
+            >>> from src.main import EcommerceAutomator
+            >>> automator = EcommerceAutomator(google_api_key="your-api-key")
+            >>> result = automator.run_complete_workflow("wireless bluetooth headphones")
+            >>> print(result['product_data']['title'])
+        """
+        print("\n" + "=" * 60)
+        print(f"[WORKFLOW] Starting Complete Workflow for: {product_input}")
+        print(f"[VERSION] v{SKILL_CONFIG['version']}")
+        print("=" * 60)
+
+        # Validate input
+        if not product_input or not product_input.strip():
+            return {
+                "status": "error",
+                "message": "Invalid input: product_input cannot be empty",
+                "error_code": "INVALID_INPUT"
+            }
+
+        product_input = product_input.strip()
+        print(f"\n[INPUT] Product: {product_input}")
+        print(f"[TARGET] Country: {country}, Language: {language}")
+
+        result = {
+            "input": product_input,
+            "country": country,
+            "language": language,
+            "status": "in_progress",
+            "steps_completed": []
+        }
+
+        try:
+            # Step 1: Analyze GEO opportunities
+            print(f"\n[STEP 1/4] Analyzing GEO opportunities...")
+            analysis_result = self.analyzer.analyze(
+                brand="AutoBrand",
+                product=product_input,
+                core_keyword=product_input,
+                country=country,
+                language=language,
+                competitors=None,
+                platform_focus=None
+            )
+            result["geo_analysis"] = analysis_result
+            result["steps_completed"].append("geo_analysis")
+            print(f"[SUCCESS] Found {len(analysis_result.get('opportunities', []))} opportunities")
+
+            # Step 2: Synthesize product data
+            print(f"\n[STEP 2/4] Synthesizing product data...")
+            first_opportunity = analysis_result.get("opportunities", [{}])[0] if analysis_result.get("opportunities") else {}
+
+            product_data = self.product_synthesizer.synthesize(
+                product_name=product_input,
+                category=first_opportunity.get("category", "General"),
+                base_price=None,
+                description=first_opportunity.get("content_body", ""),
+                language=language,
+                target_platforms=["shopify", "woocommerce"]
+            )
+            result["product_data"] = product_data
+            result["steps_completed"].append("product_synthesis")
+            print(f"[SUCCESS] Generated: {product_data['title']}")
+            print(f"[PRICE] ${product_data['price']}, [SKU] {product_data['sku']}")
+
+            # Step 3: Generate images
+            generated_images = []
+            if generate_images:
+                print(f"\n[STEP 3/4] Generating product images...")
+
+                if not validate_api_key():
+                    print("[WARNING] No Google API Key found. Images will be simulated.")
+
+                # Use the first opportunity's image prompts
+                image_prompts = analysis_result.get("image_prompts", [])
+                if image_prompts:
+                    prompt_group = image_prompts[0]
+                    prompts_to_generate = []
+                    for style in ["white_info", "lifestyle", "hero"]:
+                        if style in prompt_group:
+                            prompts_to_generate.append({
+                                "style": style,
+                                "prompt": prompt_group[style]["prompt"]
+                            })
+
+                    image_results = self.image_generator.generate_batch(
+                        prompts_to_generate,
+                        f"product_{product_data['sku']}"
+                    )
+                    generated_images = image_results
+                    result["generated_images"] = image_results
+                    result["steps_completed"].append("image_generation")
+                    print(f"[SUCCESS] Generated {len(generated_images)} images")
+                else:
+                    print("[WARNING] No image prompts available")
+            else:
+                print(f"\n[STEP 3/4] Skipping image generation (disabled)")
+
+            # Step 4: Publish to platforms
+            print(f"\n[STEP 4/4] Publishing to platforms...")
+            publish_results = {
+                "shopify": None,
+                "woocommerce": None
+            }
+
+            # Get the main image URL
+            main_image_url = generated_images[0].get("image_url") if generated_images else None
+
+            # Publish to Shopify
+            if publish_to_shopify and self.shopify.connected:
+                shopify_result = self._publish_to_shopify(product_data, main_image_url)
+                publish_results["shopify"] = shopify_result
+                if shopify_result.get("success"):
+                    print(f"[SUCCESS] Published to Shopify: ID {shopify_result.get('product_id')}")
+                else:
+                    print(f"[ERROR] Shopify: {shopify_result.get('error')}")
+            elif publish_to_shopify and not self.shopify.connected:
+                print(f"[WARNING] Shopify not connected. Skipping.")
+
+            # Publish to WooCommerce
+            if publish_to_woocommerce and self.woocommerce.connected:
+                woo_result = self._publish_to_woocommerce(product_data, main_image_url)
+                publish_results["woocommerce"] = woo_result
+                if woo_result.get("success"):
+                    print(f"[SUCCESS] Published to WooCommerce: ID {woo_result.get('product_id')}")
+                else:
+                    print(f"[ERROR] WooCommerce: {woo_result.get('error')}")
+            elif publish_to_woocommerce and not self.woocommerce.connected:
+                print(f"[WARNING] WooCommerce not connected. Skipping.")
+
+            result["publish_results"] = publish_results
+            result["steps_completed"].append("publishing")
+
+            # Save result to file
+            output_path = Path(output_dir) / f"workflow_result_{product_data['sku']}.json"
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+
+            result["status"] = "completed"
+            result["output_file"] = str(output_path)
+
+            print("\n" + "=" * 60)
+            print(f"[WORKFLOW COMPLETED] All steps finished successfully!")
+            print(f"[OUTPUT] {output_path}")
+            print("=" * 60)
+
+            return result
+
+        except Exception as e:
+            result["status"] = "error"
+            result["error"] = str(e)
+            print(f"\n[ERROR] Workflow failed: {str(e)}")
+            return result
+
     def _check_connections(self) -> None:
         """Check API connections status"""
         print("\n[CONNECTION CHECK]")
