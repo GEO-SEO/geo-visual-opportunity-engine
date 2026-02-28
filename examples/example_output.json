@@ -61,60 +61,32 @@
         },
         "size_recommendation": "1600x900"
       }
+    }
+  ],
+  "generated_images": [
+    {
+      "opportunity_id": "op1",
+      "image_type": "white_info",
+      "image_url": "output/images/op1_white_info_1234567890.png",
+      "generation_status": "success",
+      "prompt_used": "White-background e-commerce infographic featuring Acme DivePro 5 front view...",
+      "timestamp": "2026-02-28T12:00:00Z"
     },
     {
-      "opportunity_id": "op2",
-      "white_info": {
-        "prompt": "Side-by-side product comparison infographic, Acme DivePro 5 on left, BrandA Pro on right, clean white background, minimalist design, balanced composition, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1200x1800.",
-        "suggested_overlay_text": {
-          "title": "Comparison",
-          "bullets": ["Acme: 5ATM", "BrandA: 3ATM", "Acme Wins"]
-        },
-        "size_recommendation": "1200x1800"
-      },
-      "lifestyle": {
-        "prompt": "Two friends comparing smartwatches while swimming in infinity pool, one wearing Acme DivePro 5, other wearing BrandA Pro, relaxed vacation vibe, tropical resort setting, golden hour lighting, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1200x628.",
-        "suggested_overlay_text": {
-          "main": "Make the right choice",
-          "sub": "DivePro 5 outperforms"
-        },
-        "size_recommendation": "1200x628"
-      },
-      "hero": {
-        "prompt": "Dramatic hero shot: Acme DivePro 5 rising above water surface, BrandA Pro submerged below, metaphor for superior water resistance, deep ocean blue gradient background, cinematic lighting, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1600x900.",
-        "suggested_overlay_text": {
-          "headline": "Superior Water Resistance",
-          "cta": "Compare Now"
-        },
-        "size_recommendation": "1600x900"
-      }
+      "opportunity_id": "op1",
+      "image_type": "lifestyle",
+      "image_url": "output/images/op1_lifestyle_1234567890.png",
+      "generation_status": "success",
+      "prompt_used": "Lifestyle photography: Active young professional swimming laps...",
+      "timestamp": "2026-02-28T12:00:01Z"
     },
     {
-      "opportunity_id": "op3",
-      "white_info": {
-        "prompt": "White-background instructional infographic showing swimming scenarios with Acme DivePro 5, icons for pool swimming, open water swimming, shower wearing, hot tub, clean layout, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1200x1800.",
-        "suggested_overlay_text": {
-          "title": "Swim Scenarios",
-          "bullets": ["Pool Swimming", "Open Water", "Shower Safe", "Hot Tub Ready"]
-        },
-        "size_recommendation": "1200x1800"
-      },
-      "lifestyle": {
-        "prompt": "Real-world lifestyle场景: Diverse group of friends enjoying various water activities, one swimming laps, one taking underwater photos, one checking time after shower, all wearing Acme DivePro 5, vibrant vacation atmosphere, natural candid photography, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1200x628.",
-        "suggested_overlay_text": {
-          "main": "Water-Ready, Every Scenario",
-          "sub": "From Pool to Ocean"
-        },
-        "size_recommendation": "1200x628"
-      },
-      "hero": {
-        "prompt": "Aspirational hero banner: Athlete swimmer underwater looking at smartwatch, determination on face, crystal clear pool water, professional sports photography, dramatic underwater lighting, 8k resolution. DO NOT EMBED TEXT; reserve overlay area. Size: 1600x900.",
-        "suggested_overlay_text": {
-          "headline": "Track Every Stroke",
-          "cta": "Start Swimming"
-        },
-        "size_recommendation": "1600x900"
-      }
+      "opportunity_id": "op1",
+      "image_type": "hero",
+      "image_url": "output/images/op1_hero_1234567890.png",
+      "generation_status": "success",
+      "prompt_used": "Premium hero banner: Acme DivePro 5 suspended in mid-air...",
+      "timestamp": "2026-02-28T12:00:02Z"
     }
   ],
   "content_drafts": [
@@ -191,8 +163,8 @@
     "recap_and_iterations": "Review visibility metrics at day 14 and day 28; if no citation gain observed, add technical datasheet PDF and initiate PR outreach to tech publications; consider A/B testing different CTA variations; iterate image prompts based on engagement data."
   },
   "meta": {
-    "skill_version": "geo_v1.0",
-    "generated_at": "2025-03-10T12:00:00Z",
+    "skill_version": "geo_v2.0",
+    "generated_at": "2026-02-28T12:00:00Z",
     "input_echo": {
       "brand": "AcmeWatch",
       "product": "Acme DivePro 5",

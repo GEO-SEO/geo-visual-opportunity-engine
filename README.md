@@ -1,34 +1,55 @@
-# GEO 视觉机会工厂
+# GEO Visual Opportunity Engine
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/your-username/geo-visual-opportunity-engine)
-[![Platform](https://img.shields.io/badge/Platform-Dify%20%7C%20Coze%20%7C%20LangChain-orange.svg)](#)
+[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](https://github.com/GEO-SEO/geo-visual-opportunity-engine)
+[![Platform](https://img.shields.io/badge/Platform-Dify%20%7C%20Coze%20%7C%20Python-orange.svg)](#)
+[![Nano Banana 2](https://img.shields.io/badge/Powered%20By-Nano%20Banana%202-yellow.svg)](#)
 
-> 输入品牌/产品/关键词/竞品与目标语言后，自动输出优先级机会清单、每个机会的内容目标、三套 Nano-ready 图像 prompt、文案稿与 4 周发布节奏。用于品牌的 GEO 内容流水线化生产。
+> After inputting brand/product/keywords/competitors and target language, automatically outputs: priority opportunity list, content objectives, three sets of Nano-ready image prompts, **automatically generates images using Nano Banana 2 (Google Gemini)**, and provides a 4-week posting rhythm for brand GEO content pipeline production.
 
-## 功能特性
+## Features
 
-- **智能机会分析**：基于品牌、产品和核心关键词，识别高优先级的 GEO 机会点
-- **三套图像 Prompt**：为每个机会生成白底信息图、场景图、封面图三种类型的 AI 图像提示词
-- **本地化内容**：支持 10+ 种语言的本地化内容生成
-- **四周发布节奏**：提供完整的内容发布计划和 KPI 建议
-- **结构化输出**：严格的 JSON 格式输出，便于程序化处理
+- **Smart Opportunity Analysis**: Identifies high-priority GEO opportunities based on brand, product, and core keywords
+- **Three Image Prompts**: Generates white info, lifestyle, and hero image prompts for each opportunity
+- **Auto Image Generation**: Automatically calls Nano Banana 2 (Google Gemini 3.1 Flash) to generate actual images
+- **Localized Content**: Supports 10+ languages for content generation
+- **4-Week Publishing Rhythm**: Provides complete content publishing plan with KPI suggestions
+- **Structured Output**: Strict JSON format output for programmatic processing
 
-## 快速开始
+## Quick Start
 
-### 输入参数
+### Prerequisites
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `brand` | string | 是 | 品牌名称 |
-| `product` | string | 是 | 产品名称 |
-| `core_keyword` | string | 是 | 核心关键词 |
-| `country` | string | 是 | 目标国家代码（如 us, uk, jp） |
-| `language` | string | 是 | 输出语言代码（如 en, zh, ja） |
-| `competitors` | array | 否 | 竞争对手列表（最多 10 个） |
-| `platform_focus` | array | 否 | 目标 AI 平台 |
+- Python 3.9+
+- Google AI Studio API Key (for Nano Banana 2 image generation)
 
-### 示例输入
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/GEO-SEO/geo-visual-opportunity-engine.git
+cd geo-visual-opportunity-engine
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set your Google API Key
+export GOOGLE_API_KEY="your-api-key-here"
+```
+
+### Input Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `brand` | string | Yes | Brand name |
+| `product` | string | Yes | Product name |
+| `core_keyword` | string | Yes | Core keyword |
+| `country` | string | Yes | Target country code (e.g., us, uk, jp) |
+| `language` | string | Yes | Output language code (e.g., en, zh, ja) |
+| `competitors` | array | No | Competitor list (max 10) |
+| `platform_focus` | array | No | Target AI platforms |
+
+### Example Input
 
 ```json
 {
@@ -42,24 +63,50 @@
 }
 ```
 
-### 平台集成
+## Python Usage
 
-#### Dify.ai
+```python
+from src.main import GEOVisualEngine
 
-1. 打开 Dify 工作台
-2. 创建新应用或导入现有应用
-3. 在「提示词」部分，复制 `prompts/system_prompt.md` 的内容
-4. 配置输入变量（参考 `schemas/input_schema.json`）
-5. 配置输出格式为 JSON
+# Initialize the engine
+engine = GEOVisualEngine(api_key="your-google-api-key")
 
-#### Coze / GPTs
+# Run analysis with auto image generation
+result = engine.run(
+    brand="AcmeWatch",
+    product="Acme DivePro 5",
+    core_keyword="smartwatch water resistance",
+    country="us",
+    language="en",
+    competitors=["BrandA", "BrandB"]
+)
 
-1. 创建新 Bot
-2. 在系统提示词中粘贴 `prompts/system_prompt.md` 的内容
-3. 配置输入表单（参考 `schemas/input_schema.json` 中的字段定义）
-4. 设置输出格式为 JSON
+# Result contains:
+# - opportunities: List of GEO opportunities
+# - image_prompts: Generated prompts for each opportunity
+# - generated_images: Paths to Nano Banana 2 generated images
+# - content_drafts: Localized content drafts
+# - posting_schedule: 4-week publishing plan
+```
 
-#### LangChain
+## Platform Integration
+
+### Dify.ai
+
+1. Open Dify dashboard
+2. Create new app or import existing
+3. Copy `prompts/system_prompt.md` content to "Prompt" section
+4. Configure input variables (reference `schemas/input_schema.json`)
+5. Set output format to JSON
+
+### Coze / GPTs
+
+1. Create new Bot
+2. Paste `prompts/system_prompt.md` as system prompt
+3. Configure input form (reference field definitions in `schemas/input_schema.json`)
+4. Set output format to JSON
+
+### LangChain
 
 ```python
 from langchain.prompts import PromptTemplate
@@ -73,88 +120,123 @@ template = PromptTemplate(
 )
 ```
 
-## 项目结构
+## Nano Banana 2 Integration
+
+This skill automatically generates images using **Nano Banana 2** (Google Gemini 3.1 Flash Image) after creating the prompts.
+
+### Image Styles
+
+- **White Info**: Clean white background, infographic style, product-focused
+- **Lifestyle**: Real-world场景, human interaction, photorealistic
+- **Hero**: Dramatic lighting, commercial photography, brand impact
+
+### Configuration
+
+Set your Google API Key:
+
+```bash
+export GOOGLE_API_KEY="your-google-api-key"
+```
+
+Get your API key from: https://aistudio.google.com/app/apikey
+
+## Project Structure
 
 ```
 geo-visual-opportunity-engine/
-├── manifest.json                 # Skill 元数据配置
-├── README.md                     # 项目说明文档
-├── LICENSE                       # 开源许可证
+├── manifest.json                 # Skill metadata
+├── README.md                    # This file
+├── LICENSE                      # MIT License
+├── requirements.txt             # Python dependencies
+├── src/
+│   ├── __init__.py
+│   ├── main.py                  # Main entry point
+│   ├── analyzer.py              # Opportunity analysis
+│   ├── nano_banana_2.py         # Nano Banana 2 image generation
+│   └── config.py                # Configuration
 ├── schemas/
-│   ├── input_schema.json         # 输入参数 JSON Schema
-│   └── output_schema.json        # 输出结构 JSON Schema
+│   ├── input_schema.json        # Input JSON Schema
+│   └── output_schema.json       # Output JSON Schema
 ├── prompts/
-│   └── system_prompt.md          # 核心系统提示词
+│   └── system_prompt.md         # Core system prompt
 └── examples/
-    ├── example_input.json        # 示例输入
-    └── example_output.json       # 示例输出
+    ├── example_input.json       # Example input
+    └── example_output.json      # Example output
 ```
 
-## 输出格式
+## Output Format
 
-### 成功响应
+### Success Response
 
 ```json
 {
   "opportunities": [...],
   "image_prompts": [...],
+  "generated_images": [...],
   "content_drafts": [...],
   "posting_schedule": {...},
   "meta": {...}
 }
 ```
 
-### 错误响应
+### Error Response
 
 ```json
 {
   "error": "invalid_input",
-  "details": "必填字段不能为空"
+  "details": "Required field cannot be empty"
 }
 ```
 
-## 支持的语言
+## Supported Languages
 
-- 英语 (English)
-- 中文 (Chinese)
-- 日语 (Japanese)
-- 西班牙语 (Spanish)
-- 法语 (French)
-- 德语 (German)
-- 韩语 (Korean)
-- 葡萄牙语 (Portuguese)
-- 意大利语 (Italian)
-- 俄语 (Russian)
+- English
+- Chinese
+- Japanese
+- Spanish
+- French
+- German
+- Korean
+- Portuguese
+- Italian
+- Russian
 
-## 版本历史
+## Version History
+
+### v2.0.0 (2026-02-28)
+
+- Added automatic Nano Banana 2 image generation
+- Upgraded to Google Gemini 3.1 Flash Image model
+- Added Python SDK for local execution
+- All documentation in English
 
 ### v1.0.0 (2025-03-10)
 
-- 初始版本发布
-- 支持结构化输入和 JSON 输出
-- 提供三套图像 prompt 生成
-- 包含四周发布节奏规划
+- Initial release
+- Structured JSON input/output
+- Three-image prompt generation
+- 4-week publishing rhythm planning
 
-## 贡献指南
+## Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and Pull Requests are welcome!
 
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'Add some amazing feature'`)
-4. 推送分支 (`git push origin feature/amazing-feature`)
-5. 打开 Pull Request
+1. Fork this repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add some amazing feature'`)
+4. Push branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
-## 许可证
+## License
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
 
-## 联系方式
+## Author
 
-- 作者：Your Name
-- 邮箱：your.email@example.com
-- 网站：https://your-website.com
+- **Tim**
+- Email: sales@dageno.ai
+- Website: https://dageno.ai/
 
 ---
 
-*本 Skill 旨在帮助品牌营销团队快速生成 GEO 优化内容，提升品牌在 AI 搜索引擎中的可见度。*
+*This skill helps brand marketing teams quickly generate GEO-optimized content and visual assets, improving brand visibility in AI search engines.*

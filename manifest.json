@@ -1,14 +1,12 @@
 {
   "name": "geo-visual-opportunity-engine",
-  "version": "1.0.0",
-  "display_name": "GEO 视觉机会工厂",
-  "display_name_en": "GEO Visual Opportunity Engine",
-  "description": "输入品牌/产品/关键词/竞品与目标语言后，自动输出优先级机会清单、每个机会的内容目标、三套 Nano-ready 图像 prompt、文案稿与 4 周发布节奏。用于品牌的 GEO 内容流水线化生产。",
-  "description_en": "After inputting brand/product/keywords/competitors and target language, automatically outputs: priority opportunity list, content objectives for each opportunity, three sets of Nano-ready image prompts, copy drafts, and 4-week posting rhythm. Used for brand GEO content pipeline production.",
+  "version": "2.0.0",
+  "display_name": "GEO Visual Opportunity Engine",
+  "description": "After inputting brand/product/keywords/competitors and target language, automatically outputs: priority opportunity list, content objectives, three sets of Nano-ready image prompts, and automatically generates images using Nano Banana 2 (Google Gemini). Includes 4-week posting rhythm for brand GEO content pipeline production.",
   "author": {
-    "name": "Your Name",
-    "email": "your.email@example.com",
-    "website": "https://your-website.com"
+    "name": "Tim",
+    "email": "sales@dageno.ai",
+    "website": "https://dageno.ai/"
   },
   "tags": [
     "marketing",
@@ -17,12 +15,14 @@
     "strategy",
     "social-media",
     "content-generation",
-    "ai-images"
+    "ai-images",
+    "nano-banana-2",
+    "gemini"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/geo-visual-opportunity-engine"
+    "url": "https://github.com/GEO-SEO/geo-visual-opportunity-engine"
   },
   "entry_point": "prompts/system_prompt.md",
   "input_schema": "schemas/input_schema.json",
@@ -37,7 +37,8 @@
     "dify",
     "coze",
     "langchain",
-    "custom"
+    "custom",
+    "python"
   ],
   "languages_supported": [
     "en",
@@ -51,11 +52,21 @@
     "it",
     "ru"
   ],
+  "image_generation": {
+    "provider": "nano-banana-2",
+    "model": "gemini-3.1-flash-image",
+    "api_env_var": "GOOGLE_API_KEY",
+    "supported_styles": [
+      "white_info",
+      "lifestyle",
+      "hero"
+    ]
+  },
   "created_at": "2025-03-10",
-  "updated_at": "2025-03-10",
+  "updated_at": "2026-02-28",
   "metadata": {
-    "schema_version": "1.0",
-    "skill_type": "content-generation",
+    "schema_version": "2.0",
+    "skill_type": "content-generation-with-images",
     "output_format": "application/json"
   }
 }
