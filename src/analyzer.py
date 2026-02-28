@@ -52,7 +52,7 @@ class OpportunityAnalyzer:
 
         # Generate opportunities
         opportunities = self._generate_opportunities(
-            brand, product, core_keyword, country, platform_focus
+            brand, product, core_keyword, country, platform_focus, competitors
         )
 
         # Generate image prompts
@@ -92,7 +92,8 @@ class OpportunityAnalyzer:
         product: str,
         core_keyword: str,
         country: str,
-        platform_focus: List[str]
+        platform_focus: List[str],
+        competitors: List[str]
     ) -> List[Dict]:
         """Generate opportunity list"""
         opportunities = []
