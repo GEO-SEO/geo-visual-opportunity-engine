@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GEO 视觉机会工厂 - 输入参数",
+  "description": "定义 GEO 视觉机会工厂 skill 的输入参数结构",
+  "type": "object",
+  "required": [
+    "brand",
+    "product",
+    "core_keyword",
+    "country",
+    "language"
+  ],
+  "properties": {
+    "brand": {
+      "type": "string",
+      "title": "品牌名称",
+      "description": "要分析的品牌名称",
+      "examples": ["AcmeWatch", "ZenithBrew", "OceanTech"],
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "product": {
+      "type": "string",
+      "title": "产品名称",
+      "description": "要推广的具体产品",
+      "examples": ["Acme DivePro 5", "Portable Cold Brew Coffee Maker", "Smart Home Hub"],
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "core_keyword": {
+      "type": "string",
+      "title": "核心关键词",
+      "description": "产品或品牌的主要关键词/搜索词",
+      "examples": ["smartwatch water resistance", "cold brew coffee maker", "smart home automation"],
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "country": {
+      "type": "string",
+      "title": "目标国家代码",
+      "description": "目标市场的国家代码（ISO 3166-1 alpha-2）",
+      "examples": ["us", "uk", "jp", "de", "fr", "es", "br", "au"],
+      "enum": ["us", "uk", "ca", "au", "jp", "kr", "cn", "de", "fr", "es", "it", "pt", "ru", "br", "in", "sg", "mx"],
+      "enumLabels": {
+        "us": "美国 (United States)",
+        "uk": "英国 (United Kingdom)",
+        "ca": "加拿大 (Canada)",
+        "au": "澳大利亚 (Australia)",
+        "jp": "日本 (Japan)",
+        "kr": "韩国 (South Korea)",
+        "cn": "中国 (China)",
+        "de": "德国 (Germany)",
+        "fr": "法国 (France)",
+        "es": "西班牙 (Spain)",
+        "it": "意大利 (Italy)",
+        "pt": "葡萄牙 (Portugal)",
+        "ru": "俄罗斯 (Russia)",
+        "br": "巴西 (Brazil)",
+        "in": "印度 (India)",
+        "sg": "新加坡 (Singapore)",
+        "mx": "墨西哥 (Mexico)"
+      }
+    },
+    "language": {
+      "type": "string",
+      "title": "目标语言",
+      "description": "输出内容的目标语言代码",
+      "examples": ["en", "zh", "ja", "es", "fr", "de", "ko", "pt", "it", "ru"],
+      "enum": ["en", "zh", "ja", "es", "fr", "de", "ko", "pt", "it", "ru"],
+      "enumLabels": {
+        "en": "英语 (English)",
+        "zh": "中文 (Chinese)",
+        "ja": "日语 (Japanese)",
+        "es": "西班牙语 (Spanish)",
+        "fr": "法语 (French)",
+        "de": "德语 (German)",
+        "ko": "韩语 (Korean)",
+        "pt": "葡萄牙语 (Portuguese)",
+        "it": "意大利语 (Italian)",
+        "ru": "俄语 (Russian)"
+      }
+    },
+    "competitors": {
+      "type": "array",
+      "title": "竞争对手",
+      "description": "要分析的竞争对手品牌列表（可选，最多 10 个）",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "maxItems": 10,
+      "examples": [["BrandA", "BrandB"], ["Nespresso", "Starbucks"], ["Apple", "Samsung", "Google"]]
+    },
+    "platform_focus": {
+      "type": "array",
+      "title": "平台焦点",
+      "description": "重点优化的 AI 平台（可选）",
+      "items": {
+        "type": "string",
+        "enum": ["ChatGPT", "Perplexity", "Grok", "Gemini", "Claude", "Copilot"]
+      },
+      "examples": [["ChatGPT", "Grok"], ["Perplexity", "Gemini"], ["ChatGPT", "Perplexity", "Grok", "Gemini"]],
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "ui": {
+    "order": [
+      "brand",
+      "product",
+      "core_keyword",
+      "country",
+      "language",
+      "competitors",
+      "platform_focus"
+    ]
+  }
+}
