@@ -1,4 +1,4 @@
-# E-commerce Automator
+# GeoCommerce Automator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Version-3.0.0-blue.svg)](https://github.com/GEO-SEO/geo-visual-opportunity-engine)
