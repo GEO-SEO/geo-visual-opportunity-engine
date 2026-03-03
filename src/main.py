@@ -575,15 +575,91 @@ def main():
     """
     Main function for command-line usage
     Supports both direct usage and OpenCLAW parameter passing
+    Supports JSON input via stdin, file, or command-line arguments
     """
     import argparse
     import os
     import json
+    import sys
 
-    # Parse command-line arguments
+    # First, try to read JSON input from stdin (common for automation systems)
+    input_data = None
+    if not sys.stdin.isatty():
+        # stdin has data - try to read JSON
+        try:
+            input_data = json.load(sys.stdin)
+        except:
+            pass
+
+    # If no stdin data, try to read from file argument
+    if input_data is None:
+        parser = argparse.ArgumentParser(description="E-commerce Automator")
+        parser.add_argument("--input", "-i", type=str, help="Input JSON file")
+        parser.add_argument("--config", type=str, help="Input JSON string")
+        args, unknown = parser.parse_known_args()
+
+        if args.input and os.path.exists(args.input):
+            with open(args.input, "r") as f:
+                input_data = json.load(f)
+        elif args.config:
+            input_data = json.loads(args.config)
+
+    # If we have JSON input, use it
+    if input_data:
+        # Extract parameters from JSON input
+        brand = input_data.get("brand", "")
+        product = input_data.get("product", "")
+        core_keyword = input_data.get("core_keyword", product)
+        category = input_data.get("category", "Electronics")
+        base_price = input_data.get("base_price")
+        country = input_data.get("country", "us")
+        language = input_data.get("language", "en")
+        competitors = input_data.get("competitors", [])
+        platform_focus = input_data.get("platform_focus", ["ChatGPT", "Grok"])
+        publish_to_shopify = input_data.get("publish_to_shopify", False)
+        publish_to_woocommerce = input_data.get("publish_to_woocommerce", False)
+        image_style = input_data.get("image_style", "white_info")
+
+        # Get API keys
+        google_api_key = input_data.get("google_api_key") or os.environ.get("GOOGLE_API_KEY")
+        shopify_url = input_data.get("shopify_store_url") or os.environ.get("SHOPIFY_STORE_URL")
+        shopify_token = input_data.get("shopify_access_token") or os.environ.get("SHOPIFY_ACCESS_TOKEN")
+
+        print("=" * 50)
+        print(f"Running workflow for: {product or core_keyword}")
+        print(f"Brand: {brand}, Country: {country}, Language: {language}")
+        print("=" * 50)
+
+        # Initialize automator
+        automator = EcommerceAutomator(
+            google_api_key=google_api_key,
+            shopify_store_url=shopify_url,
+            shopify_access_token=shopify_token
+        )
+
+        # Run complete workflow
+        result = automator.run_complete_workflow(
+            product_input=core_keyword or product,
+            country=country,
+            language=language,
+            generate_images=True,
+            publish_to_shopify=publish_to_shopify,
+            publish_to_woocommerce=publish_to_woocommerce,
+            output_dir="output"
+        )
+
+        # Save result
+        output_path = input_data.get("output", "output/result.json")
+        automator.save_result(result, output_path)
+        print(f"\n[DONE] Result saved to: {output_path}")
+        print(f"Status: {result.get('status')}")
+        return
+
+    # Fall back to command-line arguments
     parser = argparse.ArgumentParser(description="E-commerce Automator")
     parser.add_argument("--product", "-p", type=str, help="Product name/keyword")
     parser.add_argument("--brand", "-b", type=str, help="Brand name")
+    parser.add_argument("--core-keyword", type=str, help="Core keyword for SEO")
     parser.add_argument("--category", "-c", type=str, default="Electronics", help="Product category")
     parser.add_argument("--price", type=float, help="Base price")
     parser.add_argument("--country", type=str, default="us", help="Target country")
@@ -617,7 +693,7 @@ def main():
         print("=" * 50)
 
         result = automator.run_complete_workflow(
-            product_input=args.product,
+            product_input=args.core_keyword or args.product,
             country=args.country,
             language=args.language,
             generate_images=args.generate_images,
