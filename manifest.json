@@ -53,7 +53,7 @@
   "integrations": {
     "image_generation": {
       "provider": "nano-banana-2",
-      "model": "gemini-3.1-flash-image",
+      "model": "gemini-2.5-flash-image",
       "api_env_var": "GOOGLE_API_KEY",
       "supported_styles": [
         "white_info",
