@@ -20,8 +20,9 @@ SKILL_CONFIG = {
 }
 
 # Nano Banana 2 Configuration
+# Using Gemini 2.5 Flash Image (Nano Banana 2) for native image generation
 NANO_BANANA_CONFIG = {
-    "model": "gemini-3.1-flash-image",
+    "model": "gemini-2.5-flash-image",
     "api_env_var": "GOOGLE_API_KEY",
     "supported_styles": ["white_info", "lifestyle", "hero"],
     "default_size": "1024x1024",
@@ -58,7 +59,8 @@ OUTPUT_CONFIG = {
 # API Configuration
 def get_google_api_key() -> str:
     """Get Google API Key from environment variable"""
-    return os.environ.get("GOOGLE_API_KEY", "")
+    # Support both GOOGLE_API_KEY and GEMINI_API_KEY
+    return os.environ.get("GOOGLE_API_KEY", os.environ.get("GEMINI_API_KEY", ""))
 
 def validate_api_key() -> bool:
     """Validate if Google API Key is set"""
