@@ -128,8 +128,8 @@ Commerce Layer
 
 Core files:
 
-- [`SKILL.md`](/Users/timlin/Downloads/geo-visual-opportunity-engine/SKILL.md)
-- [`src/main.py`](/Users/timlin/Downloads/geo-visual-opportunity-engine/src/main.py)
+- [`SKILL.md`](./SKILL.md)
+- [`src/main.py`](./src/main.py)
 
 Use this project when you want a product content workflow that connects GEO thinking with visual production and commerce execution.
 
