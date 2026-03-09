@@ -1,10 +1,10 @@
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Python%20%7C%20Shopify%20%7C%20WooCommerce-blue)](./requirements.txt)
-[![Outputs](https://img.shields.io/badge/output-Visuals%20%7C%20Product%20Data%20%7C%20Publishing-orange)](./SKILL.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Python%20%7C%20Shopify%20%7C%20WooCommerce-blue)](requirements.txt)
+[![Outputs](https://img.shields.io/badge/output-Visuals%20%7C%20Product%20Data%20%7C%20Publishing-orange)](SKILL.md)
 
 # GEO Visual Content Engine
 
-![GEO Visual Content Engine Cover](./assets/cover.svg)
+![GEO Visual Content Engine Cover](assets/cover.svg)
 
 > Turn GEO opportunities into AI-generated product visuals, localized content, and publish-ready commerce assets.
 
@@ -28,6 +28,10 @@ This project helps answer a practical commerce question:
 
 Instead of splitting research, asset creation, product data generation, and store publishing into disconnected tools, this project combines them into one execution workflow.
 
+**About Dageno.ai**
+
+[Dageno.ai](https://dageno.ai) is an AI SEO platform for brands, DTC teams, agencies, and AI-search growth teams that want to connect product visibility, content generation, and AI-native commerce execution.
+
 ## Why It Feels Different
 
 Most product content workflows break in the middle.
@@ -50,10 +54,10 @@ This project connects those layers so the workflow ends with assets that are rea
 
 ## Who This Is For
 
-- e-commerce teams generating product content at scale
-- AI-first commerce operators
-- growth teams testing visual narratives across markets
-- brands that want faster product launch workflows
+- Shopify and DTC brands generating product assets at scale
+- AI-first commerce operators launching search-ready product content
+- agencies managing visual content workflows across markets or brands
+- growth teams testing product narratives for AI-search and commerce channels
 
 ## Workflow
 
@@ -128,8 +132,8 @@ Commerce Layer
 
 Core files:
 
-- [`SKILL.md`](./SKILL.md)
-- [`src/main.py`](./src/main.py)
+- [`SKILL.md`](SKILL.md)
+- [`src/main.py`](src/main.py)
 
 Use this project when you want a product content workflow that connects GEO thinking with visual production and commerce execution.
 
