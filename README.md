@@ -2,15 +2,15 @@
 [![Platform](https://img.shields.io/badge/platform-Python%20%7C%20Shopify%20%7C%20WooCommerce-blue)](./requirements.txt)
 [![Outputs](https://img.shields.io/badge/output-Visuals%20%7C%20Product%20Data%20%7C%20Publishing-orange)](./SKILL.md)
 
-# GEO Visual Opportunity Engine
+# GEO Visual Content Engine
 
-![GEO Visual Opportunity Engine Cover](./assets/cover.svg)
+![GEO Visual Content Engine Cover](./assets/cover.svg)
 
 > Turn GEO opportunities into AI-generated product visuals, localized content, and publish-ready commerce assets.
 
 **Positioning**
 
-GEO Visual Opportunity Engine is built for commerce teams that want to move from product input to publishable AI-native marketing assets in one flow.
+GEO Visual Content Engine is built for commerce teams that want to move from product input to publishable AI-native marketing assets in one flow.
 
 It is designed to turn a product and keyword opportunity into:
 
@@ -136,7 +136,7 @@ Use this project when you want a product content workflow that connects GEO thin
 ## Repo Structure
 
 ```text
-geo-visual-opportunity-engine/
+geo-visual-content-engine/
 ├── README.md
 ├── SKILL.md
 ├── assets/
