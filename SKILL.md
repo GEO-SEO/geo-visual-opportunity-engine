@@ -1,8 +1,69 @@
+---
+name: geo-visual-opportunity-engine
+description: Use when the user wants to turn a product and keyword opportunity into AI-generated visuals, structured product data, localized commerce copy, or publish-ready outputs for Shopify and WooCommerce. Trigger for product image generation, product listing automation, GEO-aware commerce content, Shopify publishing, WooCommerce publishing, or AI-native visual content workflows.
+metadata:
+  author: GEO-SEO
+  version: "3.0.1"
+  homepage: https://github.com/GEO-SEO/geo-visual-opportunity-engine
+  primaryEnv: GOOGLE_API_KEY
+  requires:
+    env:
+      - GOOGLE_API_KEY
+      - SHOPIFY_STORE_URL
+      - SHOPIFY_ACCESS_TOKEN
+      - WOOCOMMERCE_STORE_URL
+      - WOOCOMMERCE_CONSUMER_KEY
+      - WOOCOMMERCE_CONSUMER_SECRET
+    bins:
+      - python3
+---
+
 # GEO Visual Opportunity Engine
+
+Use this skill to turn a product and keyword opportunity into AI-generated visuals, structured product data, localized commerce copy, and optional Shopify or WooCommerce publishing.
 
 ## Overview
 
+This skill connects GEO opportunity analysis, image generation, product-data synthesis, localization, and commerce publishing in one workflow.
+
+## Best For
+
+- DTC and Shopify teams producing AI-generated product assets at scale
+- commerce operators testing product narratives for search and AI-native discovery
+- agencies managing cross-market visual content and listing workflows
+- teams that want product analysis, visuals, and publishing in one system
+
+## Start With
+
+```text
+Generate AI product visuals and commerce copy for this product opportunity
+```
+
+```text
+Run GEO analysis for this product and keyword before generating assets
+```
+
+```text
+Create publish-ready Shopify or WooCommerce assets for this product
+```
+
+## Core Workflow
+
 GEO Visual Opportunity Engine is an AI-powered e-commerce automation tool that generates product images using Nano Banana 2 (Google Gemini) and automatically publishes products to Shopify and WooCommerce.
+
+## External Access And Minimum Credentials
+
+This workflow uses external services. Required credentials depend on the actions you enable:
+
+- `GOOGLE_API_KEY`: required for Nano Banana 2 / Gemini image generation
+- `SHOPIFY_STORE_URL` and `SHOPIFY_ACCESS_TOKEN`: required only when publishing to Shopify
+- `WOOCOMMERCE_STORE_URL`, `WOOCOMMERCE_CONSUMER_KEY`, and `WOOCOMMERCE_CONSUMER_SECRET`: required only when publishing to WooCommerce
+- `python3`: required to run the packaged automation code
+
+If publishing credentials are absent:
+
+- the skill can still stop at opportunity analysis, product data synthesis, and image generation
+- do not claim live publishing or platform write access unless the matching credentials are present
 
 ## Features
 

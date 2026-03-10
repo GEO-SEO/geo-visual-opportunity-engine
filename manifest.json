@@ -88,6 +88,8 @@
   "metadata": {
     "schema_version": "3.0",
     "skill_type": "ecommerce-automation",
-    "output_format": "application/json"
+    "output_format": "application/json",
+    "network_access": "required for image generation and optional for commerce publishing",
+    "minimum_permissions": "image generation requires GOOGLE_API_KEY; commerce publishing requires only the platform credentials for the enabled target"
   }
 }

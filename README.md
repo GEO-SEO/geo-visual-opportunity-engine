@@ -82,6 +82,22 @@ For one product and keyword input, the workflow can produce:
 - localized content variants
 - publish-ready outputs for Shopify and WooCommerce
 
+## External Access And Minimum Credentials
+
+This workflow can use three external systems:
+
+- Google Gemini / Nano Banana 2 for image generation
+- Shopify for product publishing
+- WooCommerce for product publishing
+
+Minimum credentials by action:
+
+- `GOOGLE_API_KEY`: required for image generation
+- `SHOPIFY_STORE_URL` + `SHOPIFY_ACCESS_TOKEN`: only required for Shopify publishing
+- `WOOCOMMERCE_STORE_URL` + `WOOCOMMERCE_CONSUMER_KEY` + `WOOCOMMERCE_CONSUMER_SECRET`: only required for WooCommerce publishing
+
+If publishing credentials are absent, the workflow should stop at analysis, visuals, and product-data output instead of claiming live store access.
+
 ## Example Input
 
 ```json
