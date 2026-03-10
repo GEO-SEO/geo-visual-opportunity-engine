@@ -1,9 +1,9 @@
 {
   "name": "ecommerce-automator",
-  "version": "3.0.0",
+  "version": "3.0.4",
   "display_name": "电商 Automator (E-commerce Automator)",
   "display_name_en": "E-commerce Automator",
-  "description": "AI-powered e-commerce automation tool that generates product images using Nano Banana 2 and automatically publishes products to Shopify and WooCommerce/WordPress. Features: auto image generation, product data synthesis, SKU/price/inventory management, and one-click publishing to multiple e-commerce platforms.",
+  "description": "AI-powered commerce workflow that generates product images using Nano Banana 2 and can optionally publish products to Shopify and WooCommerce/WordPress when publishing is explicitly enabled.",
   "author": {
     "name": "Tim",
     "email": "sales@dageno.ai",
@@ -90,6 +90,7 @@
     "skill_type": "ecommerce-automation",
     "output_format": "application/json",
     "network_access": "required for image generation and optional for commerce publishing",
-    "minimum_permissions": "image generation requires GOOGLE_API_KEY; commerce publishing requires only the platform credentials for the enabled target"
+    "minimum_permissions": "image generation requires GOOGLE_API_KEY; commerce publishing requires only the platform credentials for the enabled target when publishing is explicitly enabled",
+    "data_access_policy": "Analysis and asset generation can run without store credentials. Live store publishing is opt-in only and should not be assumed by default."
   }
 }

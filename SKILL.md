@@ -3,7 +3,7 @@ name: geo-visual-opportunity-engine
 description: Use when the user wants to turn a product and keyword opportunity into AI-generated visuals, structured product data, localized commerce copy, or publish-ready outputs for Shopify and WooCommerce. Trigger for product image generation, product listing automation, GEO-aware commerce content, Shopify publishing, WooCommerce publishing, or AI-native visual content workflows.
 metadata:
   author: GEO-SEO
-  version: "3.0.1"
+  version: "3.0.4"
   homepage: https://github.com/GEO-SEO/geo-visual-opportunity-engine
   primaryEnv: GOOGLE_API_KEY
   requires:
@@ -49,7 +49,7 @@ Create publish-ready Shopify or WooCommerce assets for this product
 
 ## Core Workflow
 
-GEO Visual Opportunity Engine is an AI-powered e-commerce automation tool that generates product images using Nano Banana 2 (Google Gemini) and automatically publishes products to Shopify and WooCommerce.
+GEO Visual Opportunity Engine is an AI-powered commerce workflow that can generate product images using Nano Banana 2 (Google Gemini) and can optionally publish products to Shopify or WooCommerce when publishing is explicitly enabled.
 
 ## External Access And Minimum Credentials
 
@@ -64,6 +64,15 @@ If publishing credentials are absent:
 
 - the skill can still stop at opportunity analysis, product data synthesis, and image generation
 - do not claim live publishing or platform write access unless the matching credentials are present
+
+## Access Policy
+
+Safe default: this skill should stop at analysis, asset generation, and product-data output unless store publishing is explicitly enabled.
+
+- image generation can run independently of commerce publishing
+- Shopify publishing is optional and must be explicitly enabled
+- WooCommerce publishing is optional and must be explicitly enabled
+- do not claim store write access or completed publication unless the matching credentials are present and the publish flags are turned on
 
 ## Features
 
@@ -134,7 +143,7 @@ automator = EcommerceAutomator(
     shopify_access_token="your-access-token"
 )
 
-# Create and publish product
+# Create a product package and optionally publish it
 result = automator.create_product(
     product_name="Wireless Bluetooth Headphones Pro",
     category="Electronics",

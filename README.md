@@ -43,7 +43,7 @@ Teams often have:
 - another for localization
 - another for marketplace or store publishing
 
-This project connects those layers so the workflow ends with assets that are ready to publish, not just drafts that still need manual cleanup.
+This project connects those layers so the workflow can end with assets that are ready to publish, not just drafts that still need manual cleanup.
 
 ## What You Get
 
@@ -97,6 +97,13 @@ Minimum credentials by action:
 - `WOOCOMMERCE_STORE_URL` + `WOOCOMMERCE_CONSUMER_KEY` + `WOOCOMMERCE_CONSUMER_SECRET`: only required for WooCommerce publishing
 
 If publishing credentials are absent, the workflow should stop at analysis, visuals, and product-data output instead of claiming live store access.
+
+Access policy:
+
+- image generation can run without any commerce credentials
+- Shopify and WooCommerce publishing are optional, not required
+- the workflow should not assume live store write access by default
+- if publishing is not explicitly enabled, stop at asset and product-data output
 
 ## Example Input
 
